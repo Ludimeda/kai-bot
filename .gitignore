@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Entorno virtual
+venv/
+env/
+.env
+
+# Archivos del bot
+kai_progreso.txt
+
+# Sistema
+.DS_Store
+Thumbs.db
