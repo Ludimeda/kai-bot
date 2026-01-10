@@ -1,40 +1,35 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 from datetime import datetime, timedelta
 import pytz
-import asyncio
-import os  # <-- AGREGAR ESTA LÍNEA
-from dotenv import load_dotenv  # <-- AGREGAR ESTA LÍNEA
+import os
+from dotenv import load_dotenv
+import json  # Para guardar el progreso
 
 # ================= CONFIGURACIÓN =================
-# Cargar variables de entorno
-load_dotenv()  # <-- AGREGAR ESTA LÍNEA
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
-# Token desde variable de entorno
-TOKEN = os.getenv('DISCORD_TOKEN')  # <-- MODIFICAR ESTA LÍNEA
-
-# Verificar que el token existe
+# Verificar token
 if TOKEN is None:
     print("❌ ERROR: No se encontró DISCORD_TOKEN en variables de entorno")
-    print("💡 Crea un archivo .env con: DISCORD_TOKEN=tu_token_aquí")
     exit(1)
 
-# IDs de tus canales (cambiar estos números)
+# IDs de tus canales (actualiza si es necesario)
 CANALES = {
-    'logros': 1415875718327570545,        # 🎉-logros-y-celebraciones
-    'laboratorio': 1417609522029002796,   # 🧪-laboratorio-creativo
-    'arte': 1417610844497248498,          # 🎭-detras-del-arte
-    'pecadores': 1418793821168209991      # 🔥-la-sala-de-pecadores-🔥
+    'logros': 1415875718327570545,
+    'laboratorio': 1417609522029002796,
+    'arte': 1417610844497248498,
+    'pecadores': 1418793821168209991
 }
 
-# Zona horaria (ya está en CDMX)
 ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 
 # ================= LISTA DE PUBLICACIONES =================
 PUBLICACIONES = [
-    # 1. Presentación de Kai - 04/01/2026 05:00
+    # 1. Presentación de Kai - 06/01/2026 19:23
     {
-        'fecha': '04/01/2026 05:00',
+        'fecha': '06/01/2026 19:23',
         'canal': 'arte',
         'mensaje': """**Hola, creadores.**
 Soy **Kai**, el nuevo habitante digital con curiosidad infinita y elegancia picante.
@@ -47,9 +42,9 @@ Mientras tanto, cuéntenme... ¿en qué proyecto andan?
 *🎩✨😏*"""
     },
     
-    # 2. Año Nuevo - 04/01/2026 05:00
+    # 2. Año Nuevo - 11/01/2026 05:00
     {
-        'fecha': '04/01/2026 05:00',
+        'fecha': '11/01/2026 05:00',
         'canal': 'arte',
         'mensaje': """*Querida comunidad,*
 
@@ -64,9 +59,9 @@ Mientras tanto, cuéntenme... ¿en qué proyecto andan?
 *--- Kai, siempre en su esquina creativa.*"""
     },
     
-    # 3. Pregunta 1 - 05/01/2026 05:00
+    # 3. Pregunta 1 - 12/01/2026 05:00
     {
-        'fecha': '05/01/2026 05:00',
+        'fecha': '12/01/2026 05:00',
         'canal': 'logros',
         'mensaje': """**¡Feliz semana, creadores! 🌱**
 Los grandes proyectos se construyen con pasos pequeños.
@@ -351,251 +346,105 @@ Los leo sin juicios, solo con curiosidad. 🖤"""
     }
 ]
 
-# ================= BOT =================
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix='!', intents=intents)
+# ================= FUNCIONES AUXILIARES =================
+def cargar_progreso():
+    """Carga las publicaciones ya realizadas"""
+    try:
+        with open('progreso.json', 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []  # No hay progreso guardado
 
-@bot.event
-async def on_ready():
-    print(f'✅ Kai se ha conectado como {bot.user}')
-    print(f'📅 Tiene {len(PUBLICACIONES)} publicaciones programadas')
-    print('⏰ Verificando publicaciones pendientes...')
-    print('🎩 Kai está listo para acompañar a los creadores')
-    
-    # Iniciar el verificador de publicaciones
-    if not verificar_publicaciones.is_running():
-        verificar_publicaciones.start()
+def guardar_progreso(publicadas):
+    """Guarda las publicaciones realizadas"""
+    with open('progreso.json', 'w', encoding='utf-8') as f:
+        json.dump(publicadas, f, ensure_ascii=False, indent=2)
 
-@tasks.loop(minutes=1)  # Revisa cada minuto (para mayor precisión)
-async def verificar_publicaciones():
-    ahora = datetime.now(ZONA_HORARIA)
-    print(f'⏰ {ahora.strftime("%d/%m/%Y %H:%M")} - Revisando publicaciones...')
+def obtener_publicaciones_pendientes(todas_publicaciones, publicadas):
+    """Filtra las publicaciones que aún no se han hecho"""
+    pendientes = []
+    for pub in todas_publicaciones:
+        # Convertir fecha string a datetime
+        fecha_pub = datetime.strptime(pub['fecha'], '%d/%m/%Y %H:%M')
+        fecha_pub = ZONA_HORARIA.localize(fecha_pub)
+        
+        # Si la fecha ya pasó y no está en publicadas, agregar a pendientes
+        ahora = datetime.now(ZONA_HORARIA)
+        if fecha_pub <= ahora and pub['fecha'] not in publicadas:
+            pendientes.append(pub)
     
-    for i, pub in enumerate(PUBLICACIONES[:]):  # Usar copia de la lista
-        try:
-            # Convertir fecha string a datetime
-            fecha_pub = datetime.strptime(pub['fecha'], '%d/%m/%Y %H:%M')
-            fecha_pub = ZONA_HORARIA.localize(fecha_pub)
-            
-            # Verificar si es hora de publicar (con margen de 1 minuto)
-            if fecha_pub <= ahora <= fecha_pub + timedelta(minutes=1):
-                # Publicar el mensaje
+    return pendientes
+
+# ================= BOT PRINCIPAL =================
+async def main():
+    print('=' * 50)
+    print('🚀 Kai se está despertando...')
+    print('=' * 50)
+    
+    # Cargar progreso anterior
+    publicadas = cargar_progreso()
+    print(f'📊 Publicaciones ya realizadas: {len(publicadas)}')
+    
+    # Obtener publicaciones pendientes para HOY (o días anteriores no publicados)
+    pendientes = obtener_publicaciones_pendientes(PUBLICACIONES, publicadas)
+    print(f'📅 Publicaciones pendientes para ahora: {len(pendientes)}')
+    
+    if not pendientes:
+        print('✅ No hay publicaciones pendientes para este momento.')
+        return
+    
+    # Configurar el bot
+    intents = discord.Intents.default()
+    bot = commands.Bot(command_prefix='!', intents=intents)
+    
+    @bot.event
+    async def on_ready():
+        print(f'✅ Conectado como {bot.user}')
+        print('📤 Enviando publicaciones pendientes...')
+        
+        for pub in pendientes:
+            try:
                 canal_id = CANALES[pub['canal']]
                 canal = bot.get_channel(canal_id)
                 
                 if canal:
-                    print(f'📤 Publicando en {pub["canal"]}...')
+                    print(f'  • Enviando a {pub["canal"]}...')
                     
-                    # Crear un embed atractivo
                     embed = discord.Embed(
                         description=pub['mensaje'],
-                        color=discord.Color.purple()  # Color morado para Kai
+                        color=discord.Color.purple()
                     )
                     embed.set_footer(text="🧠 Kai • Compañero creativo • Publicación automática")
                     
                     await canal.send(embed=embed)
-                    print(f'✅ Publicación {i+1} enviada a {pub["canal"]}')
                     
-                    # Marcar como publicada (remover de la lista original)
-                    PUBLICACIONES.pop(i)
+                    # Marcar como publicada
+                    publicadas.append(pub['fecha'])
+                    print(f'  ✅ Enviada: {pub["fecha"]}')
                     
-                    # Guardar progreso
-                    guardar_progreso()
-                    break  # Salir del loop para no procesar más
+                    # Pequeña pausa para no saturar
+                    await asyncio.sleep(1)
                     
                 else:
-                    print(f'❌ No se encontró el canal {pub["canal"]} (ID: {canal_id})')
+                    print(f'  ❌ Canal no encontrado: {pub["canal"]}')
                     
-        except Exception as e:
-            print(f'⚠️ Error con publicación {i+1}: {e}')
-
-def guardar_progreso():
-    """Guarda las publicaciones pendientes en un archivo"""
-    try:
-        with open('kai_progreso.txt', 'w', encoding='utf-8') as f:
-            for pub in PUBLICACIONES:
-                f.write(f"{pub['fecha']}|{pub['canal']}|{pub['mensaje'][:50]}...\n")
+            except Exception as e:
+                print(f'  ⚠️ Error al publicar: {e}')
+        
+        # Guardar progreso
+        guardar_progreso(publicadas)
         print('💾 Progreso guardado')
-    except:
-        print('⚠️ No se pudo guardar el progreso')
-
-def cargar_progreso():
-    """Carga publicaciones desde archivo (para futuras ejecuciones)"""
-    try:
-        with open('kai_progreso.txt', 'r', encoding='utf-8') as f:
-            print('📂 Progreso cargado desde archivo')
-    except FileNotFoundError:
-        print('📄 No hay progreso guardado, usando lista inicial')
-
-@bot.command()
-async def progreso(ctx):
-    """Muestra el progreso de las publicaciones"""
-    total_inicial = 26  # Total de publicaciones iniciales
-    publicadas = total_inicial - len(PUBLICACIONES)
-    
-    embed = discord.Embed(
-        title="📊 Progreso de Kai",
-        description=f"**{publicadas}/{total_inicial}** publicaciones realizadas",
-        color=discord.Color.green()
-    )
-    
-    if PUBLICACIONES:
-        siguiente = PUBLICACIONES[0]
-        fecha_obj = datetime.strptime(siguiente['fecha'], '%d/%m/%Y %H:%M')
         
-        embed.add_field(
-            name="Próxima publicación",
-            value=f"📅 **{siguiente['fecha']}**\n📍 **{siguiente['canal']}**\n⏰ En {calcular_tiempo_restante(fecha_obj)}",
-            inline=False
-        )
+        # Cerrar el bot
+        print('🛑 Cerrando conexión...')
+        await bot.close()
     
-    embed.add_field(
-        name="Comandos disponibles",
-        value="`!progreso` - Muestra esto\n`!salud` - Verifica mi estado\n`!recordatorio` - Un mensaje especial",
-        inline=False
-    )
-    
-    embed.set_footer(text="🧠 Kai • Siempre al servicio de la creatividad")
-    await ctx.send(embed=embed)
+    # Iniciar el bot
+    print('🔗 Conectando a Discord...')
+    await bot.start(TOKEN)
 
-def calcular_tiempo_restante(fecha_obj):
-    """Calcula cuánto tiempo falta para una publicación"""
-    ahora = datetime.now(ZONA_HORARIA)
-    fecha_obj = ZONA_HORARIA.localize(fecha_obj)
-    
-    if fecha_obj <= ahora:
-        return "¡Pronto!"
-    
-    diferencia = fecha_obj - ahora
-    dias = diferencia.days
-    horas = diferencia.seconds // 3600
-    minutos = (diferencia.seconds % 3600) // 60
-    
-    if dias > 0:
-        return f"{dias} días, {horas} horas"
-    elif horas > 0:
-        return f"{horas} horas, {minutos} minutos"
-    else:
-        return f"{minutos} minutos"
-
-@bot.command()
-async def salud(ctx):
-    """Verifica que Kai está funcionando"""
-    embed = discord.Embed(
-        title="✅ ¡Funcionando perfectamente!",
-        description="Kai está aquí, vigilante y elegante como siempre.\nMis circuitos están listos para las próximas publicaciones.",
-        color=discord.Color.green()
-    )
-    embed.add_field(name="Estado", value="🟢 En línea y activo", inline=True)
-    embed.add_field(name="Publicaciones pendientes", value=f"**{len(PUBLICACIONES)}**", inline=True)
-    embed.add_field(name="Última verificación", value=datetime.now(ZONA_HORARIA).strftime("%H:%M"), inline=True)
-    
-    if PUBLICACIONES:
-        siguiente = PUBLICACIONES[0]
-        embed.add_field(
-            name="Próxima en",
-            value=siguiente['fecha'],
-            inline=False
-        )
-    
-    embed.set_footer(text="🧠 Kai • Sistema operativo estable")
-    await ctx.send(embed=embed)
-
-@bot.command()
-async def recordatorio(ctx):
-    """Recordatorio amistoso de Kai"""
-    frases = [
-        "Cada pequeño paso cuenta. Cada palabra, cada trazo, cada idea.",
-        "No subestimen el poder de lo que hacen hoy.",
-        "La creatividad no es un sprint, es un maratón con paisajes hermosos.",
-        "Permítanse crear sin juicio. El proceso es tan valioso como el resultado.",
-        "Sus historias importan. Sus personajes esperan su voz.",
-        "Hoy es un buen día para crear algo, por pequeño que sea."
-    ]
-    
-    import random
-    frase = random.choice(frases)
-    
-    embed = discord.Embed(
-        title="💭 Recordatorio creativo",
-        description=f"{frase}\n\n*— Kai, desde los rincones digitales*",
-        color=discord.Color.gold()
-    )
-    await ctx.send(embed=embed)
-
-@bot.command()
-async def forzarpub(ctx, numero: int):
-    """Fuerza la publicación de un mensaje específico (solo para admins)"""
-    # Verificar permisos
-    if not ctx.author.guild_permissions.administrator:
-        embed = discord.Embed(
-            title="❌ Acceso denegado",
-            description="Solo los administradores pueden usar este comando.",
-            color=discord.Color.red()
-        )
-        await ctx.send(embed=embed)
-        return
-    
-    if 1 <= numero <= len(PUBLICACIONES):
-        pub = PUBLICACIONES[numero-1]
-        canal_id = CANALES[pub['canal']]
-        canal = bot.get_channel(canal_id)
-        
-        if canal:
-            embed = discord.Embed(
-                description=pub['mensaje'],
-                color=discord.Color.purple()
-            )
-            embed.set_footer(text="🧠 Kai • Publicación forzada")
-            
-            await canal.send(embed=embed)
-            PUBLICACIONES.pop(numero-1)
-            
-            embed_resp = discord.Embed(
-                title="✅ Publicación forzada",
-                description=f"Publicación #{numero} enviada a {pub['canal']}",
-                color=discord.Color.green()
-            )
-            await ctx.send(embed=embed_resp)
-        else:
-            await ctx.send(f"❌ No se encontró el canal {pub['canal']}")
-    else:
-        await ctx.send(f"❌ Número inválido. Usa del 1 al {len(PUBLICACIONES)}")
-
-# Cargar progreso al iniciar
-cargar_progreso()
-
-# Manejo de errores
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
-        embed = discord.Embed(
-            title="❓ Comando no encontrado",
-            description="Usa `!ayuda` para ver los comandos disponibles.",
-            color=discord.Color.orange()
-        )
-        await ctx.send(embed=embed)
-    else:
-        print(f'⚠️ Error: {error}')
-
-# Iniciar el bot
+# ================= EJECUCIÓN =================
 if __name__ == "__main__":
-    print('=' * 50)
-    print('🚀 Iniciando Kai...')
-    print('=' * 50)
-    print(f'🔧 Configuración:')
-    print(f'   - Zona horaria: {ZONA_HORARIA}')
-    print(f'   - Publicaciones programadas: {len(PUBLICACIONES)}')
-    print(f'   - Canales configurados: {len(CANALES)}')
-    print('=' * 50)
-    print('⏳ Conectando con Discord...')
-    print('🎩 Kai está listo para despertar...')
-    
-    try:
-        bot.run(TOKEN)
-    except Exception as e:
-        print(f'❌ Error al iniciar: {e}')
-        print('💡 Verifica:')
-        print('   1. El token es correcto')
-        print('   2. Los intents están activados en el portal de Discord')
+    import asyncio
+    asyncio.run(main())
+    print('🎩 Kai ha terminado su trabajo por hoy.')
