@@ -347,31 +347,23 @@ Los leo sin juicios, solo con curiosidad. 🖤"""
 ]
 
 # ================= FUNCIONES AUXILIARES =================
-def cargar_progreso():
-    """Carga las publicaciones ya realizadas"""
-    try:
-        with open('progreso.json', 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return []  # No hay progreso guardado
-
-def guardar_progreso(publicadas):
-    """Guarda las publicaciones realizadas"""
-    with open('progreso.json', 'w', encoding='utf-8') as f:
-        json.dump(publicadas, f, ensure_ascii=False, indent=2)
-
-def obtener_publicaciones_pendientes(todas_publicaciones, publicadas):
-    """Filtra las publicaciones que aún no se han hecho"""
+def obtener_publicaciones_pendientes(todas_publicaciones):
+    """Filtra las publicaciones que ya deberían haberse publicado"""
     pendientes = []
+    ahora = datetime.now(ZONA_HORARIA)
+    
     for pub in todas_publicaciones:
         # Convertir fecha string a datetime
         fecha_pub = datetime.strptime(pub['fecha'], '%d/%m/%Y %H:%M')
         fecha_pub = ZONA_HORARIA.localize(fecha_pub)
         
-        # Si la fecha ya pasó y no está en publicadas, agregar a pendientes
-        ahora = datetime.now(ZONA_HORARIA)
-        if fecha_pub <= ahora and pub['fecha'] not in publicadas:
+        # Si la fecha ya pasó, es pendiente
+        # IMPORTANTE: Así publicará TODO lo que se haya saltado
+        if fecha_pub <= ahora:
             pendientes.append(pub)
+    
+    # Ordenar por fecha (más antigua primero)
+    pendientes.sort(key=lambda x: datetime.strptime(x['fecha'], '%d/%m/%Y %H:%M'))
     
     return pendientes
 
@@ -381,67 +373,19 @@ async def main():
     print('🚀 Kai se está despertando...')
     print('=' * 50)
     
-    # Cargar progreso anterior
-    publicadas = cargar_progreso()
-    print(f'📊 Publicaciones ya realizadas: {len(publicadas)}')
-    
-    # Obtener publicaciones pendientes para HOY (o días anteriores no publicados)
-    pendientes = obtener_publicaciones_pendientes(PUBLICACIONES, publicadas)
-    print(f'📅 Publicaciones pendientes para ahora: {len(pendientes)}')
+    # Obtener TODAS las publicaciones que ya deberían haberse hecho
+    pendientes = obtener_publicaciones_pendientes(PUBLICACIONES)
+    print(f'📅 Publicaciones pendientes hasta ahora: {len(pendientes)}')
     
     if not pendientes:
         print('✅ No hay publicaciones pendientes para este momento.')
         return
     
-    # Configurar el bot
-    intents = discord.Intents.default()
-    bot = commands.Bot(command_prefix='!', intents=intents)
-    
-    @bot.event
-    async def on_ready():
-        print(f'✅ Conectado como {bot.user}')
-        print('📤 Enviando publicaciones pendientes...')
-        
-        for pub in pendientes:
-            try:
-                canal_id = CANALES[pub['canal']]
-                canal = bot.get_channel(canal_id)
-                
-                if canal:
-                    print(f'  • Enviando a {pub["canal"]}...')
-                    
-                    embed = discord.Embed(
-                        description=pub['mensaje'],
-                        color=discord.Color.purple()
-                    )
-                    embed.set_footer(text="🧠 Kai • Compañero creativo • Publicación automática")
-                    
-                    await canal.send(embed=embed)
-                    
-                    # Marcar como publicada
-                    publicadas.append(pub['fecha'])
-                    print(f'  ✅ Enviada: {pub["fecha"]}')
-                    
-                    # Pequeña pausa para no saturar
-                    await asyncio.sleep(1)
-                    
-                else:
-                    print(f'  ❌ Canal no encontrado: {pub["canal"]}')
-                    
-            except Exception as e:
-                print(f'  ⚠️ Error al publicar: {e}')
-        
-        # Guardar progreso
-        guardar_progreso(publicadas)
-        print('💾 Progreso guardado')
-        
-        # Cerrar el bot
-        print('🛑 Cerrando conexión...')
-        await bot.close()
-    
-    # Iniciar el bot
-    print('🔗 Conectando a Discord...')
-    await bot.start(TOKEN)
+    # Mostrar qué va a publicar
+    for i, pub in enumerate(pendientes[:3]):  # Mostrar solo las primeras 3
+        print(f'  {i+1}. {pub["fecha"]} → {pub["canal"]}')
+    if len(pendientes) > 3:
+        print(f'  ... y {len(pendientes)-3} más')
 
 # ================= EJECUCIÓN =================
 if __name__ == "__main__":
