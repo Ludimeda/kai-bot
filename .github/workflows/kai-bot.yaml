@@ -37,11 +37,3 @@ jobs:
         
     - name: 🚀 Ejecutar Kai Bot
       run: python kai_bot.py
-      
-    - name: 💾 Guardar progreso en el repositorio
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add progreso.json
-        git commit -m "📊 Actualizar progreso de Kai" || echo "No hay cambios"
-        git push
