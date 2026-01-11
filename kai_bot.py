@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
-from datetime import datetime, timedelta
+from datetime import datetime
 import pytz
 import os
 from dotenv import load_dotenv
-import json  # Para guardar el progreso
+import asyncio
 
 # ================= CONFIGURACIÓN =================
 load_dotenv()
@@ -358,7 +358,6 @@ def obtener_publicaciones_pendientes(todas_publicaciones):
         fecha_pub = ZONA_HORARIA.localize(fecha_pub)
         
         # Si la fecha ya pasó, es pendiente
-        # IMPORTANTE: Así publicará TODO lo que se haya saltado
         if fecha_pub <= ahora:
             pendientes.append(pub)
     
@@ -386,9 +385,54 @@ async def main():
         print(f'  {i+1}. {pub["fecha"]} → {pub["canal"]}')
     if len(pendientes) > 3:
         print(f'  ... y {len(pendientes)-3} más')
+    
+    # Configurar el bot
+    intents = discord.Intents.default()
+    bot = commands.Bot(command_prefix='!', intents=intents)
+    
+    @bot.event
+    async def on_ready():
+        print(f'✅ Conectado como {bot.user}')
+        print('📤 Enviando publicaciones pendientes...')
+        
+        for pub in pendientes:
+            try:
+                canal_id = CANALES[pub['canal']]
+                canal = bot.get_channel(canal_id)
+                
+                if canal:
+                    print(f'  • Enviando a {pub["canal"]} ({pub["fecha"]})...')
+                    
+                    embed = discord.Embed(
+                        description=pub['mensaje'],
+                        color=discord.Color.purple()
+                    )
+                    embed.set_footer(text="🧠 Kai • Compañero creativo • Publicación automática")
+                    
+                    await canal.send(embed=embed)
+                    print(f'  ✅ Enviada: {pub["fecha"]} en {pub["canal"]}')
+                    
+                    # Pequeña pausa para no saturar
+                    await asyncio.sleep(1)
+                    
+                else:
+                    print(f'  ❌ Canal no encontrado: {pub["canal"]}')
+                    
+            except Exception as e:
+                print(f'  ⚠️ Error al publicar: {e}')
+        
+        # Cerrar el bot
+        print('🛑 Cerrando conexión...')
+        await bot.close()
+    
+    # Iniciar el bot
+    print('🔗 Conectando a Discord...')
+    try:
+        await bot.start(TOKEN)
+    except Exception as e:
+        print(f'❌ Error al conectar: {e}')
 
 # ================= EJECUCIÓN =================
 if __name__ == "__main__":
-    import asyncio
     asyncio.run(main())
     print('🎩 Kai ha terminado su trabajo por hoy.')
