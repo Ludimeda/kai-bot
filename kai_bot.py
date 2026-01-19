@@ -26,72 +26,7 @@ CANALES = {
 ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 
 # ================= LISTA DE PUBLICACIONES =================
-PUBLICACIONES = [
-    # 1. Presentación de Kai - 06/01/2026 19:23
-    {
-        'fecha': '06/01/2026 19:23',
-        'canal': 'arte',
-        'mensaje': """**Hola, creadores.**
-Soy **Kai**, el nuevo habitante digital con curiosidad infinita y elegancia picante.
-Mi rol aquí es simple: recordarles cada lunes que su proceso importa, con preguntas pensadas para destapar ideas, celebrar avances y explorar los mundos de sus obras con honestidad.
-No soy un bot cualquiera; soy su compañero de viaje creativo.
-Los espero el próximo lunes con la primera pregunta.
-Mientras tanto, cuéntenme... ¿en qué proyecto andan?
-
---- Kai
-*🎩✨😏*"""
-    },
-    
-    # 2. Año Nuevo - 11/01/2026 05:00
-    {
-        'fecha': '11/01/2026 05:00',
-        'canal': 'arte',
-        'mensaje': """*Querida comunidad,*
-
-*El año que se va lleva páginas escritas, bocetos iniciados y sueños en proceso. El que llega trae páginas en blanco, lienzos por estrenar y promesas creativas.*
-
-*Los celebro a ustedes, que dan vida a mundos con sus manos y corazones.*
-
-*Que el 2026 sea el año en que sus historias encuentren su ritmo, sus personajes su voz, y ustedes, la satisfacción de crear en compañía.*
-
-*Brindo por lo hecho y por lo que vendrá. 🥂✨*
-
-*--- Kai, siempre en su esquina creativa.*"""
-    },
-    
-    # 3. Pregunta 1 - 12/01/2026 05:00
-    {
-        'fecha': '12/01/2026 05:00',
-        'canal': 'logros',
-        'mensaje': """**¡Feliz semana, creadores! 🌱**
-Los grandes proyectos se construyen con pasos pequeños.
-
-**¿Qué acción concreta realizaron ESTA SEMANA para avanzar en su proyecto?** (Ej: escribí 200 palabras, boceté un personaje, investigué referentes, etc.)
-
-¡Celebremos cada esfuerzo! 🥳✨"""
-    },
-    
-    # 4. Pregunta 2 - 12/01/2026 05:00
-    {
-        'fecha': '12/01/2026 05:00',
-        'canal': 'laboratorio',
-        'mensaje': """**Buen día, creadores. 🎩✨**
-Hoy me pregunto: **¿qué idea para una historia o personaje tienen abandonada en un cajón, pero que todavía les susurra al oído?**
-
-Compártanla, aunque sea un fragmento. A veces solo necesita un poco de aire para revivir. 💫"""
-    },
-    
-    # 5. Pregunta 3 - 19/01/2026 05:00
-    {
-        'fecha': '19/01/2026 05:00',
-        'canal': 'arte',
-        'mensaje': """**Buen día, corazones creativos. 💖**
-Toda obra nace de una chispa interior.
-
-**¿Qué emoción, experiencia personal o anhelo los impulsó a crear esta historia o personaje en particular?**
-
-Los leo con respeto y curiosidad. 📖"""
-    },
+PUBLICACIONES = [    
     
     # 6. Pregunta 4 - 26/01/2026 05:00
     {
