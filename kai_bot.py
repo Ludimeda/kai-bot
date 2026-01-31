@@ -32,36 +32,27 @@ PUBLICACIONES = [
     {
         'fecha': '26/01/2026 05:00',
         'canal': 'pecadores',
-        'mensaje': """**Hola, maestros de la tensión. 😏🖤**
-Hoy pregunto con elegancia:
-
-**¿Disfrutan más construir una escena donde el deseo se insinúa (miradas, gestos, palabras cargadas) o donde se libera con intensidad?**
-
-Confiesen su preferencia narrativa. 🕯️"""
+        'mensaje': """💬 Kai susurra:
+¿Hay alguna escena, gesto o mirada de tu obra
+que tenga mucha tensión… sin decir nada explícito? 👀
+(puedes compartir fragmento o dibujo si te nace)"""
     },
     
     # 7. Pregunta 5 - 02/02/2026 05:00
     {
         'fecha': '02/02/2026 05:00',
         'canal': 'logros',
-        'mensaje': """**Hola, guerreros creativos. 🌿**
-La perseverancia es un logro en sí mismo.
-
-**¿Qué tarea difícil (pero necesaria) para sus obras/personajes lograron completar a pesar de la resistencia?** (Ej: reescribir una escena compleja, pulir un diseño tedioso, etc.)
-
-Honro su tenacidad. 🛡️"""
+        'mensaje': """💬 Kai sonríe:
+Cuéntanos una escena de tu obra/personaje/OC que te guste mucho (sin contexto, sin spoilers). 
+Si quieres, puedes compartir imagen, fragmento o enlace."""
     },
     
     # 8. Pregunta 6 - 09/02/2026 05:00
     {
         'fecha': '09/02/2026 05:00',
         'canal': 'laboratorio',
-        'mensaje': """**Hola, equipo. 🌿**
-En todo proyecto creativo hay un nudo que cuesta desatar.
-
-**¿Qué escena, diálogo o desarrollo de su historia actual les tiene atorados?**
-
-Describan ese bloqueo sin juicio. A veces verbalizarlo ya da pistas. 🔍"""
+        'mensaje': """¿Tienes una idea rara, mezcla extraña
+o concepto que te gustaría probar en una historia u OC?"""
     },
     
     # 9. Pregunta 7 - 16/02/2026 05:00
@@ -69,11 +60,9 @@ Describan ese bloqueo sin juicio. A veces verbalizarlo ya da pistas. 🔍"""
         'fecha': '16/02/2026 05:00',
         'canal': 'arte',
         'mensaje': """**Hola, artistas que dejan huella.**
-Aunque sea un destello, algo nuestro habita en lo que creamos.
-
-**¿Qué rasgo personal, valor o experiencia vive (sutil o claramente) en sus obras/personajes?**
-
-No teman mostrarse. Aquí celebramos la autenticidad. ✨"""
+💬 Kai pregunta con cuidado:
+¿Hay algo de tu obra que te haya costado mucho crear
+pero que te guste a pesar de todo?"""
     },
     
     # 10. Pregunta 8 - 23/02/2026 05:00
@@ -83,33 +72,25 @@ No teman mostrarse. Aquí celebramos la autenticidad. ✨"""
         'mensaje': """**Buenos días, sutiles provocadores. 👀**
 Un solo gesto puede decir más que mil palabras... y prender más, también.
 
-**¿Qué detalle no explícito (una mirada, una mano que casi toca, un susurro) les parece más sensual al escribir/dibujar una escena?**
-
-Descríbanlo con arte."""
+💬 Kai pregunta bajito:
+¿Cómo expresas el deseo en tu historia o personajes?
+¿Con silencios, cercanía, miradas, palabras…?"""
     },
     
     # 11. Pregunta 9 - 02/03/2026 05:00
     {
         'fecha': '02/03/2026 05:00',
         'canal': 'logros',
-        'mensaje': """**Buenos días, aprendices eternos. 📖**
-Crear es también aprender sobre nosotros mismos.
-
-**¿Qué descubrieron recientemente sobre su PROPIO método creativo mientras trabajaban en sus obras/personajes?** (Ej: "me doy cuenta que necesito más planeación", "dibujo mejor de noche", etc.)
-
-Compartan ese insight personal. 🧠"""
+        'mensaje': """💬 Kai deja una notita:
+Comparte algo de tu proyecto
+solo porque te gusta, sin expectativas 🌱"""
     },
     
     # 12. Pregunta 10 - 09/03/2026 05:00
     {
         'fecha': '09/03/2026 05:00',
         'canal': 'laboratorio',
-        'mensaje': """**Queridos experimentadores. 🧪**
-Hoy valoro el "error" como maestro.
-
-**¿Qué técnica de dibujo, recurso narrativo o estilo probaron en su proyecto reciente que no salió como esperaban, pero les dejó una lección valiosa?**
-
-Compartan su hallazgo inesperado. 🔬"""
+        'mensaje': """Comparte un OC o personaje y dinos algo que casi nadie sabe de él."""
     },
     
     # 13. Pregunta 11 - 16/03/2026 05:00
