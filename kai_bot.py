@@ -27,34 +27,8 @@ ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 
 # ================= LISTA DE PUBLICACIONES =================
 PUBLICACIONES = [    
-    
-    # 6. Pregunta 4 - 26/01/2026 05:00
-    {
-        'fecha': '26/01/2026 05:00',
-        'canal': 'pecadores',
-        'mensaje': """💬 Kai susurra:
-¿Hay alguna escena, gesto o mirada de tu obra
-que tenga mucha tensión… sin decir nada explícito? 👀
-(puedes compartir fragmento o dibujo si te nace)"""
-    },
-    
-    # 7. Pregunta 5 - 02/02/2026 05:00
-    {
-        'fecha': '02/02/2026 05:00',
-        'canal': 'logros',
-        'mensaje': """💬 Kai sonríe:
-Cuéntanos una escena de tu obra/personaje/OC que te guste mucho (sin contexto, sin spoilers). 
-Si quieres, puedes compartir imagen, fragmento o enlace."""
-    },
-    
-    # 8. Pregunta 6 - 09/02/2026 05:00
-    {
-        'fecha': '09/02/2026 05:00',
-        'canal': 'laboratorio',
-        'mensaje': """¿Tienes una idea rara, mezcla extraña
-o concepto que te gustaría probar en una historia u OC?"""
-    },
-    
+       
+       
     # 9. Pregunta 7 - 16/02/2026 05:00
     {
         'fecha': '16/02/2026 05:00',
