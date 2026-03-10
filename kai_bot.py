@@ -28,22 +28,7 @@ ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 # ================= LISTA DE PUBLICACIONES =================
 PUBLICACIONES = [    
        
-    
-    # 12. Pregunta 10 - 10/03/2026 06:50
-    {
-        'fecha': '10/03/2026 06:50',
-        'canal': 'arte',
-        'mensaje': """🔔 **Empezamos en 10 minutos**
-
-En unos minutos **AJ comenzará la lectura del primer capítulo de su historia**.
-
-📍 **Canal:** Sprint de voz
-
-Si quieres escuchar la historia, apoyar o comentar, puedes entrar al canal cuando quieras.
-¡Nos vemos ahí! ✨
-"""
-    },
-    
+      
     # 13. Pregunta 11 - 16/03/2026 05:00
     {
         'fecha': '16/03/2026 05:00',
