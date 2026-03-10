@@ -28,43 +28,20 @@ ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 # ================= LISTA DE PUBLICACIONES =================
 PUBLICACIONES = [    
        
-       
-    # 9. Pregunta 7 - 16/02/2026 05:00
+    
+    # 12. Pregunta 10 - 10/03/2026 06:50
     {
-        'fecha': '16/02/2026 05:00',
+        'fecha': '10/03/2026 06:50',
         'canal': 'arte',
-        'mensaje': """**Hola, artistas que dejan huella.**
-💬 Kai pregunta con cuidado:
-¿Hay algo de tu obra que te haya costado mucho crear
-pero que te guste a pesar de todo?"""
-    },
-    
-    # 10. Pregunta 8 - 23/02/2026 05:00
-    {
-        'fecha': '23/02/2026 05:00',
-        'canal': 'pecadores',
-        'mensaje': """**Buenos días, sutiles provocadores. 👀**
-Un solo gesto puede decir más que mil palabras... y prender más, también.
+        'mensaje': """🔔 **Empezamos en 10 minutos**
 
-💬 Kai pregunta bajito:
-¿Cómo expresas el deseo en tu historia o personajes?
-¿Con silencios, cercanía, miradas, palabras…?"""
-    },
-    
-    # 11. Pregunta 9 - 02/03/2026 05:00
-    {
-        'fecha': '02/03/2026 05:00',
-        'canal': 'logros',
-        'mensaje': """💬 Kai deja una notita:
-Comparte algo de tu proyecto
-solo porque te gusta, sin expectativas 🌱"""
-    },
-    
-    # 12. Pregunta 10 - 09/03/2026 05:00
-    {
-        'fecha': '09/03/2026 05:00',
-        'canal': 'laboratorio',
-        'mensaje': """Comparte un OC o personaje y dinos algo que casi nadie sabe de él."""
+En unos minutos **AJ comenzará la lectura del primer capítulo de su historia**.
+
+📍 **Canal:** Sprint de voz
+
+Si quieres escuchar la historia, apoyar o comentar, puedes entrar al canal cuando quieras.
+¡Nos vemos ahí! ✨
+"""
     },
     
     # 13. Pregunta 11 - 16/03/2026 05:00
