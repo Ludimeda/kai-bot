@@ -18,8 +18,7 @@ if TOKEN is None:
 # IDs de tus canales (actualiza si es necesario)
 CANALES = {
     'logros': 1415875718327570545,
-    'laboratorio': 1417609522029002796,
-    'arte': 1417610844497248498,
+    'ideas': 1417610844497248498,
     'pecadores': 1418793821168209991
 }
 
@@ -29,19 +28,7 @@ ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 PUBLICACIONES = [    
        
       
-    # 13. Pregunta 11 - 16/03/2026 05:00
-    {
-        'fecha': '16/03/2026 05:00',
-        'canal': 'arte',
-        'mensaje': """**Queridos evolucionadores. 🦋**
-Nada permanece igual desde el primer borrador.
-
-**¿Qué aspecto de su proyecto ha cambiado MÁS desde su concepción hasta ahora?** (Personajes, trama, estilo visual, tono...)
-
-Celebro cada transformación. 📈"""
-    },
-    
-    # 14. Pregunta 12 - 23/03/2026 05:00
+      # 14. Pregunta 12 - 23/03/2026 05:00
     {
         'fecha': '23/03/2026 05:00',
         'canal': 'pecadores',
@@ -68,7 +55,7 @@ Los leo con admiración. 🗝️"""
     # 16. Pregunta 14 - 06/04/2026 05:00
     {
         'fecha': '06/04/2026 05:00',
-        'canal': 'laboratorio',
+        'canal': 'ideas',
         'mensaje': """**Buenos días, soñadores. 🌱**
 Aunque el tiempo escasee, siempre hay una idea esperando su momento.
 
@@ -80,7 +67,7 @@ Plantemos esa semilla aquí. Quizá alguien la riegue con inspiración. 💭"""
     # 17. Pregunta 15 - 13/04/2026 05:00
     {
         'fecha': '13/04/2026 05:00',
-        'canal': 'arte',
+        'canal': 'ideas',
         'mensaje': """**Hola, cómplices. 😏🤫**
 Hoy toca sinceridad creativa sin vergüenza.
 
@@ -116,7 +103,7 @@ Cuiden al artista que hay en ustedes. 🌿"""
     # 20. Pregunta 18 - 04/05/2026 05:00
     {
         'fecha': '04/05/2026 05:00',
-        'canal': 'laboratorio',
+        'canal': 'ideas',
         'mensaje': """**Hola, alquimistas creativos. 🎭**
 Las mezclas raras suelen dar las obras más memorables.
 
@@ -128,7 +115,7 @@ Confiesen su experimento más atrevido. 🧬"""
     # 21. Pregunta 19 - 11/05/2026 05:00
     {
         'fecha': '11/05/2026 05:00',
-        'canal': 'arte',
+        'canal': 'ideas',
         'mensaje': """**Estimados tejedores de emociones. 🧠**
 Más allá de la trama, hay una vibra que queremos transmitir.
 
@@ -164,7 +151,7 @@ La comparto para tenerla presente. ⭐"""
     # 24. Pregunta 22 - 01/06/2026 05:00
     {
         'fecha': '01/06/2026 05:00',
-        'canal': 'laboratorio',
+        'canal': 'ideas',
         'mensaje': """**Estimados creadores. 🧩**
 Hoy los invito a un ejercicio de perspectiva.
 
@@ -176,7 +163,7 @@ Es útil para identificar qué falta plasmar. 👁️"""
     # 25. Pregunta 23 - 08/06/2026 05:00
     {
         'fecha': '08/06/2026 05:00',
-        'canal': 'arte',
+        'canal': 'ideas',
         'mensaje': """**Querida familia BL. 🏳️‍🌈**
 Hoy pregunto por el corazón mismo de lo que hacemos.
 
