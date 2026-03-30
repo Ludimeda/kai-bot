@@ -27,20 +27,7 @@ ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 # ================= LISTA DE PUBLICACIONES =================
 PUBLICACIONES = [    
        
-      
-      # 14. Pregunta 12 - 23/03/2026 05:00
-    {
-        'fecha': '23/03/2026 05:00',
-        'canal': 'pecadores',
-        'mensaje': """**Queridos exploradores conscientes. 🖤**
-La sensualidad tiene fronteras personales, y todas son válidas.
-
-**¿Hasta qué punto de explicitud se sienten cómodos llevando una escena íntima en sus obras?** (Ej: solo insinuación, sensualidad tácita, cierto grado de desnudez emocional/metafórica, etc.)
-
-Respeto absoluto a su zona de confort. 🛡️"""
-    },
-    
-    # 15. Pregunta 13 - 30/03/2026 05:00
+      # 15. Pregunta 13 - 30/03/2026 05:00
     {
         'fecha': '30/03/2026 05:00',
         'canal': 'logros',
