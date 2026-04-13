@@ -26,31 +26,8 @@ ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 
 # ================= LISTA DE PUBLICACIONES =================
 PUBLICACIONES = [    
-       
-      # 15. Pregunta 13 - 30/03/2026 05:00
-    {
-        'fecha': '30/03/2026 05:00',
-        'canal': 'logros',
-        'mensaje': """**Hola, equipo. ✨**
-Las victorias más importantes a veces son las que nadie ve.
-
-**Compartan un logro interno relacionado con sus obras/personajes que no es evidente para el público.** (Ej: vencer la autocrítica, definir el tono emocional, tomar una decisión clave, etc.)
-
-Los leo con admiración. 🗝️"""
-    },
-    
-    # 16. Pregunta 14 - 06/04/2026 05:00
-    {
-        'fecha': '06/04/2026 05:00',
-        'canal': 'ideas',
-        'mensaje': """**Buenos días, soñadores. 🌱**
-Aunque el tiempo escasee, siempre hay una idea esperando su momento.
-
-**¿Qué concepto, pareja o mundo les gustaría explorar algún día, aunque ahora no sea el momento?**
-
-Plantemos esa semilla aquí. Quizá alguien la riegue con inspiración. 💭"""
-    },
-    
+     
+     
     # 17. Pregunta 15 - 13/04/2026 05:00
     {
         'fecha': '13/04/2026 05:00',
