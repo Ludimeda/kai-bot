@@ -28,42 +28,8 @@ ZONA_HORARIA = pytz.timezone('America/Mexico_City')
 PUBLICACIONES = [    
      
      
-    # 17. Pregunta 15 - 13/04/2026 05:00
-    {
-        'fecha': '13/04/2026 05:00',
-        'canal': 'ideas',
-        'mensaje': """**Hola, cómplices. 😏🤫**
-Hoy toca sinceridad creativa sin vergüenza.
 
-**¿Qué cliché, tropo o dinámica aman secretamente, aunque se diga que está "gastado"?**
 
-Este es un espacio libre de juicios. Confiesen. 💘"""
-    },
-    
-    # 18. Pregunta 16 - 20/04/2026 05:00
-    {
-        'fecha': '20/04/2026 05:00',
-        'canal': 'pecadores',
-        'mensaje': """**Hola, arquitectos del ambiente. 🌫️**
-El clima de una escena puede multiplicar su carga emocional.
-
-**¿Qué atmósfera prefieren para momentos de tensión romántica/erótica en sus obras: íntima y cercana, oscura y peligrosa, suave y nostálgica, u otra?**
-
-Definan su vibra favorita. 🕯️"""
-    },
-    
-    # 19. Pregunta 17 - 27/04/2026 05:00
-    {
-        'fecha': '27/04/2026 05:00',
-        'canal': 'logros',
-        'mensaje': """**Queridos cuidadores de su llama. 🕯️**
-Sin bienestar, no hay creatividad sostenible.
-
-**¿Qué acción de autocuidado aplicaron ESTA SEMANA para proteger su energía creativa mientras trabajan en sus proyectos?** (Ej: pausas activas, límites de horario, consumo de inspiración, etc.)
-
-Cuiden al artista que hay en ustedes. 🌿"""
-    },
-    
     # 20. Pregunta 18 - 04/05/2026 05:00
     {
         'fecha': '04/05/2026 05:00',
