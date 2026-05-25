@@ -30,42 +30,7 @@ PUBLICACIONES = [
      
 
 
-    # 20. Pregunta 18 - 04/05/2026 05:00
-    {
-        'fecha': '04/05/2026 05:00',
-        'canal': 'ideas',
-        'mensaje': """**Hola, alquimistas creativos. 🎭**
-Las mezclas raras suelen dar las obras más memorables.
 
-**¿Qué combinación de géneros, tonos o influencias están queriendo integrar en sus obras actuales?** (Ej: fantasía oscura + comedia romántica, etc.)
-
-Confiesen su experimento más atrevido. 🧬"""
-    },
-    
-    # 21. Pregunta 19 - 11/05/2026 05:00
-    {
-        'fecha': '11/05/2026 05:00',
-        'canal': 'ideas',
-        'mensaje': """**Estimados tejedores de emociones. 🧠**
-Más allá de la trama, hay una vibra que queremos transmitir.
-
-**¿Qué sensación o reflexión les gustaría que quedara flotando en el lector/espectador de sus obras, incluso si no puede expresarla con palabras?**
-
-Hablen desde la intención profunda. 💫"""
-    },
-    
-    # 22. Pregunta 20 - 18/05/2026 05:00
-    {
-        'fecha': '18/05/2026 05:00',
-        'canal': 'pecadores',
-        'mensaje': """**Estimados jugadores con el deseo. 🎭**
-La narrativa BL juega con distintas formas de anhelo.
-
-**¿Qué les interesa más explorar actualmente: el deseo correspondido y realizado, o el deseo contenido, prohibido o no correspondido?**
-
-Confiesen su inclinación dramática. 🔗"""
-    },
-    
     # 23. Pregunta 21 - 25/05/2026 05:00
     {
         'fecha': '25/05/2026 05:00',
