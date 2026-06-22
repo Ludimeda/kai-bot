@@ -31,53 +31,8 @@ PUBLICACIONES = [
 
 
 
-    # 23. Pregunta 21 - 25/05/2026 05:00
-    {
-        'fecha': '25/05/2026 05:00',
-        'canal': 'logros',
-        'mensaje': """**¡Hola, soñadores en acción! 🌈**
-Sin presión, solo intención.
-
-**¿Qué meta REALISTA y amable se gustaría alcanzar en su proyecto BL durante ESTE MES Y EL MES QUE VIENE?** (Ej: terminar el capítulo 3, tener el character sheet completo, etc.)
-
-La comparto para tenerla presente. ⭐"""
-    },
-    
-    # 24. Pregunta 22 - 01/06/2026 05:00
-    {
-        'fecha': '01/06/2026 05:00',
-        'canal': 'ideas',
-        'mensaje': """**Estimados creadores. 🧩**
-Hoy los invito a un ejercicio de perspectiva.
-
-**Si alguien ajeno a su proceso viera HOY su proyecto, ¿qué cree que entendería de la trama... y qué se perdería por estar aún en su cabeza?**
-
-Es útil para identificar qué falta plasmar. 👁️"""
-    },
-    
-    # 25. Pregunta 23 - 08/06/2026 05:00
-    {
-        'fecha': '08/06/2026 05:00',
-        'canal': 'ideas',
-        'mensaje': """**Querida familia BL. 🏳️‍🌈**
-Hoy pregunto por el corazón mismo de lo que hacemos.
-
-**¿Qué los atrajo específicamente al Boys' Love como espacio creativo?** (La representación, la exploración emocional, la libertad narrativa, etc.)
-
-Celebro su elección. 💖"""
-    },
-    
-    # 26. Pregunta 24 - 15/06/2026 05:00
-    {
-        'fecha': '15/06/2026 05:00',
-        'canal': 'pecadores',
-        'mensaje': """**Última confesión de la semana, queridos valientes. 🕯️**
-A veces lo que más cuesta es también lo más magnetizante.
-
-**¿Qué tipo de escena cargada de tensión romántica/sexual les resulta difícil escribir o dibujar, pero igual los atrae creativamente?**
-
-Los leo sin juicios, solo con curiosidad. 🖤"""
-    }
+      
+       
 ]
 
 # ================= FUNCIONES AUXILIARES =================
